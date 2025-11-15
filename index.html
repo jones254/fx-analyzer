@@ -3,31 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FX Multi-Timeframe Analyzer</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <title>Forex MTF Analyzer</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+
 </head>
 
 <body class="bg-gray-100">
 
-  <div class="container">
+  <div class="max-w-6xl mx-auto p-6">
 
-    <h1 class="title">📊 FX Multi-Timeframe Analyzer</h1>
+    <h1 class="text-4xl font-bold text-center mb-6 text-gray-800">
+      📊 Forex Multi-Timeframe Analyzer
+    </h1>
 
-    <div class="card selector">
-      <label>Select Pair:</label>
-      <select id="pairSelect">
-        <option value="C:EURUSD">EURUSD</option>
-        <option value="C:GBPUSD">GBPUSD</option>
-        <option value="C:USDJPY">USDJPY</option>
-        <option value="C:USDCAD">USDCAD</option>
-        <option value="C:AUDUSD">AUDUSD</option>
-        <option value="C:NZDUSD">NZDUSD</option>
-      </select>
-      <button id="runBtn">Run Analysis</button>
+    <!-- Pair Selector -->
+    <div class="bg-white shadow-md rounded-xl p-6 flex flex-col md:flex-row gap-4 items-center justify-between">
+      <div>
+        <label class="font-semibold text-gray-700">Select Pair:</label>
+        <select id="pairSelect" class="p-3 border rounded-lg text-gray-700">
+        </select>
+      </div>
+
+      <button id="runBtn" class="bg-blue-600 px-6 py-3 text-white rounded-lg font-bold hover:bg-blue-700 transition">
+        Run Analysis
+      </button>
     </div>
 
-    <div id="results"></div>
+    <!-- Results -->
+    <div id="overallBox" class="mt-8"></div>
 
+    <!-- Chart Box -->
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <canvas id="candlesChart" class="bg-white rounded-xl shadow-md p-4"></canvas>
+      <canvas id="rsiChart" class="bg-white rounded-xl shadow-md p-4"></canvas>
+    </div>
+
+    <!-- Timeframe Results -->
+    <div id="tfResults" class="mt-8"></div>
   </div>
 
   <script src="script.js"></script>
