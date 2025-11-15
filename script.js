@@ -72,9 +72,12 @@ function renderCharts(bars) {
   const ctx1 = document.getElementById("candlesChart").getContext("2d");
   const ctx2 = document.getElementById("rsiChart").getContext("2d");
 
-  const chartData = bars.map(b => ({
-    t: new Date(b.t),
-    o: b.o, h: b.h, l: b.l, c: b.c
+  const candleData = bars.map(b => ({
+    x: new Date(b.t),
+    o: b.o,
+    h: b.h,
+    l: b.l,
+    c: b.c
   }));
 
   const closes = bars.map(b => b.c);
@@ -83,34 +86,48 @@ function renderCharts(bars) {
   if (candleChart) candleChart.destroy();
   if (rsiChart) rsiChart.destroy();
 
+  // Candlestick Chart
   candleChart = new Chart(ctx1, {
     type: "candlestick",
-    data: { datasets: [{ label: "Candles", data: chartData }] },
+    data: {
+      datasets: [{
+        label: "Price",
+        data: candleData
+      }]
+    },
     options: {
-      plugins: { legend: { display: false } },
-      scales: { x: { ticks: { display: false } } }
+      parsing: false,
+      scales: {
+        x: {
+          type: "time",
+          time: { unit: "day" }
+        }
+      }
     }
   });
 
+  // RSI Chart
   rsiChart = new Chart(ctx2, {
     type: "line",
     data: {
-      labels: bars.map(b => new Date(b.t).toLocaleDateString()),
+      labels: bars.map(b => new Date(b.t)),
       datasets: [{
         label: "RSI",
         data: rsiArr,
         borderWidth: 2,
-        pointRadius: 0
+        pointRadius: 0,
+        tension: 0.2
       }]
     },
     options: {
       scales: {
         y: { min: 0, max: 100 },
-        x: { ticks: { display: false } }
+        x: { type: "time" }
       }
     }
   });
 }
+
 
 document.getElementById("runBtn").onclick = async () => {
   const pair = document.getElementById("pairSelect").value;
