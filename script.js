@@ -1,3 +1,13 @@
+// REQUIRED registrations for candlesticks
+Chart.register(
+  CandlestickController,
+  FinancialElement,
+  CategoryScale,
+  LinearScale,
+  TimeScale
+);
+
+
 const API_KEY = "kMIVSYalfpLCApmVaF1Zepb4CA5XFjRm";
 
 const PAIRS = [
