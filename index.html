@@ -6,88 +6,72 @@
 
   <title>FX Neo Dashboard</title>
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- ChartJS & Plugins -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- REQUIRED Date Adapter -->
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial/dist/chartjs-chart-financial.umd.js"></script>
+
+  <!-- WORKING Financial Plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@3.3.0/dist/chartjs-chart-financial.min.js"></script>
 
   <style>
     body {
       background: #0d0f1a;
       color: #d7e1f7;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: "Segoe UI", sans-serif;
     }
-
     .glass {
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.25);
-    }
-
-    .neon-title {
-      text-shadow: 0px 0px 12px #3b82f6;
-    }
-
-    .signal-box {
-      border-left: 6px solid #3b82f6;
-    }
-
-    select {
-      background: rgba(255,255,255,0.1);
-      border-radius: 8px;
-      color: white;
-      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Sidebar Layout -->
   <div class="flex">
 
     <!-- Sidebar -->
-    <div class="w-64 h-screen glass fixed top-0 left-0 flex flex-col gap-6 p-6">
-      <h1 class="text-2xl font-bold neon-title">⚡ FX Neo Dashboard</h1>
+    <div class="w-64 h-screen fixed left-0 top-0 p-6 glass">
+      <h1 class="text-2xl font-bold mb-6">⚡ FX Neo Dashboard</h1>
 
-      <label class="uppercase tracking-wider text-sm text-gray-300">Select Pair</label>
-      <select id="pairSelect"></select>
+      <label class="block mb-2 text-sm">Select Pair</label>
+      <select id="pairSelect" class="w-full p-2 rounded bg-gray-800 text-white"></select>
 
       <button id="runBtn"
-        class="mt-4 bg-blue-600 hover:bg-blue-700 transition p-3 rounded-lg font-bold text-white">
+        class="mt-4 bg-blue-600 hover:bg-blue-700 transition p-3 w-full rounded-lg font-bold">
         Run Analysis
       </button>
 
-      <div id="overallBox" class="mt-8"></div>
+      <div id="overallBox" class="mt-6"></div>
     </div>
 
     <!-- Main Content -->
     <div class="flex-1 ml-72 p-10">
 
-      <!-- Candlestick Chart -->
       <div class="glass mb-10">
-        <h2 class="text-xl mb-3 font-bold">Market Structure</h2>
+        <h2 class="text-lg mb-2">Market Structure</h2>
         <canvas id="candlesChart" height="180"></canvas>
       </div>
 
-      <!-- RSI Chart -->
       <div class="glass mb-10">
-        <h2 class="text-xl mb-3 font-bold">RSI Momentum</h2>
+        <h2 class="text-lg mb-2">RSI Momentum</h2>
         <canvas id="rsiChart" height="120"></canvas>
       </div>
 
-      <!-- Timeframe Cards -->
       <div id="tfResults" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-
     </div>
+
   </div>
 
   <script src="script.js"></script>
+
 </body>
 </html>
