@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FX Multi-Timeframe Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-gray-100">
+
+  <div class="container">
+
+    <h1 class="title">📊 FX Multi-Timeframe Analyzer</h1>
+
+    <div class="card selector">
+      <label>Select Pair:</label>
+      <select id="pairSelect">
+        <option value="C:EURUSD">EURUSD</option>
+        <option value="C:GBPUSD">GBPUSD</option>
+        <option value="C:USDJPY">USDJPY</option>
+        <option value="C:USDCAD">USDCAD</option>
+        <option value="C:AUDUSD">AUDUSD</option>
+        <option value="C:NZDUSD">NZDUSD</option>
+      </select>
+      <button id="runBtn">Run Analysis</button>
+    </div>
+
+    <div id="results"></div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
