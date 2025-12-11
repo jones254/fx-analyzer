@@ -198,10 +198,104 @@ document.getElementById("runBtn").onclick = async () => {
   else if (dominant==="Up") advice="BUY";
   else if (dominant==="Down") advice="SELL";
 
-  results["Overall"] = { Dominant:dominant, AvgRSI:avgRsi, Advice:advice };
+ // ---- CONFIDENCE SCORE CALCULATION ----
+function calculateConfidence(results, dailyBars) {
+    let score = 0;
 
-  renderResults(results);
-  renderCharts(dailyBars);
+    // 1. TREND AGREEMENT (0–40)
+    const trends = Object.keys(results)
+        .filter(tf => tf !== "Overall")
+        .map(tf => results[tf].Trend);
+
+    const dominant = results["Overall"].Dominant;
+    const agreeing = trends.filter(t => t === dominant).length;
+
+    const trendScore = (agreeing / trends.length) * 40;
+    score += trendScore;
+
+    // 2. RSI SUPPORT (0–20)
+    const rsis = Object.keys(results)
+        .filter(tf => tf !== "Overall")
+        .map(tf => results[tf].RSI)
+        .filter(v => typeof v === "number");
+
+    let rsiSupports = 0;
+
+    if (dominant === "Up") {
+        rsiSupports = rsis.filter(v => v < 55).length;
+    } else if (dominant === "Down") {
+        rsiSupports = rsis.filter(v => v > 45).length;
+    }
+
+    const rsiScore = (rsiSupports / rsis.length) * 20;
+    score += rsiScore;
+
+    // 3. SMA ALIGNMENT (0–20)
+    let smaSupports = 0;
+    const totalSMAs = trends.length;
+
+    Object.keys(results).forEach(tf => {
+        if (tf === "Overall") return;
+
+        const { SMA50, SMA200 } = results[tf];
+        if (typeof SMA50 !== "number" || typeof SMA200 !== "number") return;
+
+        if (dominant === "Up"  && SMA50 > SMA200) smaSupports++;
+        if (dominant === "Down" && SMA50 < SMA200) smaSupports++;
+    });
+
+    const smaScore = (smaSupports / totalSMAs) * 20;
+    score += smaScore;
+
+    // 4. DATA QUALITY (0–10)
+    let totalBars = 0;
+    let expectedBars = 0;
+
+    Object.keys(results).forEach(tf => {
+        if (tf === "weekly") expectedBars += 250;
+        if (tf === "daily") expectedBars += 365;
+        if (tf === "4hour") expectedBars += 200;
+        if (tf === "1hour") expectedBars += 120;
+
+        if (results[tf].Bars) totalBars += results[tf].Bars;
+    });
+
+    const dataQualityScore = Math.min((totalBars / expectedBars) * 10, 10);
+    score += dataQualityScore;
+
+    // 5. VOLATILITY STABILITY (0–10)
+    if (dailyBars && dailyBars.length > 0) {
+        const closes = dailyBars.map(b => b.c);
+
+        const avg = closes.reduce((a, b) => a + b) / closes.length;
+        const variance = closes.reduce((a, b) => a + Math.pow(b - avg, 2), 0) / closes.length;
+        const std = Math.sqrt(variance);
+
+        // Inverse volatility mapping
+        // Lower std → higher score
+        let volScore = 10 - Math.min(std * 2, 10);
+        if (volScore < 0) volScore = 0;
+
+        score += volScore;
+    }
+
+    return Math.round(score);
+}
+
+// Add confidence to overall result
+const confidenceScore = calculateConfidence(results, dailyBars);
+
+results["Overall"] = {
+    Dominant: dominant,
+    AvgRSI: avgRsi,
+    Advice: advice,
+    Confidence: confidenceScore + "%"
+};
+
+renderResults(results);
+renderCharts(dailyBars);
+
+
 };
 
 // ---------------- RENDER RESULTS ----------------
