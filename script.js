@@ -282,16 +282,20 @@ function calculateConfidence(results, dailyBars) {
     return Math.round(score);
 }
 
-// Add confidence to overall result
-const confidenceScore = calculateConfidence(results, dailyBars);
-
+// 1 — First create the base Overall object
 results["Overall"] = {
     Dominant: dominant,
     AvgRSI: avgRsi,
-    Advice: advice,
-    Confidence: confidenceScore + "%"
+    Advice: advice
 };
 
+// 2 — Now safely calculate confidence
+const confidenceScore = calculateConfidence(results, dailyBars);
+
+// 3 — Add confidence to the Overall section
+results["Overall"].Confidence = confidenceScore + "%";
+
+// 4 — Render output
 renderResults(results);
 renderCharts(dailyBars);
 
