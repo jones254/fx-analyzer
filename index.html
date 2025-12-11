@@ -11,7 +11,13 @@
 <!-- Lightweight Charts -->
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
-<link rel="stylesheet" href="style.css" />
+<style>
+  #chart, #rsiChart {
+    width: 100%;
+    min-width: 300px;
+  }
+</style>
+
 </head>
 
 <body class="bg-gray-100">
@@ -35,23 +41,24 @@
 
 </div>
 
-<!-- RESULTS GO HERE -->
+<!-- RESULTS BLOCK -->
 <div id="results"></div>
 
-<!-- CHART CONTAINER -->
-<div class="bg-white p-6 rounded-xl shadow mt-8">
-  <h2 class="text-xl font-bold mb-2">Price Chart (Daily)</h2>
-  <div id="chart" style="height: 400px;"></div>
+<!-- PRICE CHART BLOCK -->
+<div class="bg-white p-6 rounded-xl shadow mt-10">
+    <h2 class="text-xl font-bold mb-2">Price Chart (Daily)</h2>
+    <div id="chart" style="height: 400px;"></div>
 </div>
 
-<div class="bg-white p-6 rounded-xl shadow mt-8">
-  <h2 class="text-xl font-bold mb-2">RSI Chart</h2>
-  <div id="rsiChart" style="height: 200px;"></div>
+<!-- RSI CHART BLOCK -->
+<div class="bg-white p-6 rounded-xl shadow mt-10 mb-10">
+    <h2 class="text-xl font-bold mb-2">RSI Chart</h2>
+    <div id="rsiChart" style="height: 200px;"></div>
 </div>
 
 </div>
 
-<!-- Your JS -->
+<!-- LOAD YOUR SCRIPT -->
 <script src="script.js"></script>
 
 </body>
