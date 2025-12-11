@@ -1,53 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FX Dashboard</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FX Dashboard</title>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Lightweight Charts CDN -->
-  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+<!-- Lightweight Charts -->
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
-  <link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css" />
 </head>
 
 <body class="bg-gray-100">
 
-  <div class="max-w-6xl mx-auto p-6">
+<div class="max-w-6xl mx-auto p-6">
 
-    <h1 class="text-3xl md:text-4xl font-bold text-center mb-8">📈 FX Multi-Timeframe Analyzer</h1>
+<h1 class="text-3xl md:text-4xl font-bold text-center mb-8">📈 FX Multi-Timeframe Analyzer</h1>
 
-    <!-- Pair Selector -->
-    <div class="bg-white rounded-xl shadow-md p-6 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+<!-- Pair Selector Box -->
+<div class="bg-white rounded-xl shadow-md p-6 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
 
-      <div class="flex items-center gap-3">
-        <label class="font-semibold">Select Pair:</label>
-        <select id="pairSelect" class="px-4 py-2 border rounded-lg shadow-sm">
-        </select>
-      </div>
-
-      <button id="runBtn"
-        class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-lg shadow-md">
-        Run Analysis
-      </button>
-
-    </div>
-
-    <!-- Chart -->
-    <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-      <h2 class="font-bold text-xl mb-3">Chart</h2>
-      <div id="chart" class="w-full h-[400px]"></div>
-      <div id="rsiChart" class="w-full h-[200px] mt-6"></div>
-    </div>
-
-    <!-- Results -->
-    <div id="results"></div>
-
+  <div class="flex items-center gap-3">
+    <label class="font-semibold">Select Pair:</label>
+    <select id="pairSelect" class="px-4 py-2 border rounded-lg shadow-sm"></select>
   </div>
 
-  <script src="script.js"></script>
+  <button id="runBtn"
+    class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-lg shadow-md">
+      Run Analysis
+  </button>
+
+</div>
+
+<!-- RESULTS GO HERE -->
+<div id="results"></div>
+
+<!-- CHART CONTAINER -->
+<div class="bg-white p-6 rounded-xl shadow mt-8">
+  <h2 class="text-xl font-bold mb-2">Price Chart (Daily)</h2>
+  <div id="chart" style="height: 400px;"></div>
+</div>
+
+<div class="bg-white p-6 rounded-xl shadow mt-8">
+  <h2 class="text-xl font-bold mb-2">RSI Chart</h2>
+  <div id="rsiChart" style="height: 200px;"></div>
+</div>
+
+</div>
+
+<!-- Your JS -->
+<script src="script.js"></script>
+
 </body>
 </html>
